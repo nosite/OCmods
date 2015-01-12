@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<modification>
+   <name>JQVMap Europe</name>
+   <version>1.0</version>
+   <author>NoSite.nl</author>
+   <link>http://nosite.nl/</link>
+   <code>admin_jqvmap_europe_ocmod</code>
+   <file path="admin/view/template/dashboard/map.tpl">
+	  <operation error="log">
+		 <search><![CDATA[src="view/javascript/jquery/jqvmap/maps/jquery.vmap.world.js"]]></search>
+		 <add position="replace"><![CDATA[src="view/javascript/jquery/jqvmap/maps/jquery.vmap.europe.js"]]></add>
+	  </operation>
+	  <operation>
+		 <search><![CDATA[map: 'world_en',]]></search>
+		 <add position="replace"><![CDATA[map: 'europe_en',]]></add>
+	  </operation>
+   </file>
+   <file path="admin/language/english/dashboard/map.php">
+	  <operation error="log">
+		 <search><![CDATA['World Map']]></search>
+		 <add position="replace"><![CDATA['Europe Map']]></add>
+	  </operation>
+   </file>
+</modification>

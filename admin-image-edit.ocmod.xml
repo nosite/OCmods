@@ -1,0 +1,19 @@
+<modification>
+    <name>Admin edit image</name>
+	<version>1.0</version>
+	<author>NoSite.nl</author>
+	<code>admin_edit-image_ocmod</code>
+
+	<file path="admin/view/template/catalog/product_list.tpl">
+		<operation>
+			<search ><![CDATA[
+			<img src="<?php echo $product['image']; ?>" alt="<?php echo $product['name']; ?>" class="img-thumbnail" />
+			]]></search>
+			<add position="replace"><![CDATA[
+			<a href="<?php echo $product['edit']; ?>" data-toggle="tooltip" title="<?php echo $button_edit; ?>" >
+			<img src="<?php echo $product['image']; ?>" alt="<?php echo $product['name']; ?>" class="img-thumbnail" />
+			</a>
+			]]></add>
+		</operation>
+	</file>
+</modification>

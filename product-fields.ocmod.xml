@@ -1,0 +1,176 @@
+<modification>
+    <name>Add all product fields</name>
+	<version>1.4</version>
+	<author>NoSite.nl</author>
+	<code>products_fields_ocmod</code>
+
+	<file path="catalog/controller/product/category.php">
+		<operation>
+			<search ><![CDATA[
+			$data['text_model'] = $this->language->get('text_model');
+			]]></search>
+			<add position="after"><![CDATA[
+			// <!-- add by ocMod -->
+			$data['text_sku'] = $this->language->get('text_sku');
+			$data['text_upc'] = $this->language->get('text_upc');
+			$data['text_ean'] = $this->language->get('text_ean');
+			$data['text_jan'] = $this->language->get('text_jan');
+			$data['text_isbn'] = $this->language->get('text_isbn');
+			$data['text_mpn'] = $this->language->get('text_mpn');
+			// <!-- end add by ocMod -->
+			]]></add>
+		</operation>
+		<operation>
+			<search ><![CDATA[
+			'href' => $this->url->link('product/product', 'path=' . $this->request->get['path'] . '&product_id=' . $result['product_id'] . $url)
+			]]></search>
+			<add position="replace"><![CDATA[
+			// <!-- add by ocMod -->
+			'href' => $this->url->link('product/product', 'path=' . $this->request->get['path'] . '&product_id=' . $result['product_id'] . $url),
+			'model' => $result['model'],
+			'sku' => $result['sku'],
+			'upc' => $result['upc'],
+			'ean' => $result['ean'],
+			'jan' => $result['jan'],
+			'isbn' => $result['isbn'],
+			'mpn' => $result['mpn']
+			// <!-- end add by ocMod -->
+			]]></add>
+		</operation>
+	</file>
+	<file path="catalog/controller/product/product.php">
+		<operation>
+			<search ><![CDATA[
+			$data['text_model'] = $this->language->get('text_model');
+			]]></search>
+			<add position="after"><![CDATA[
+			$data['text_sku'] = $this->language->get('text_sku');
+			$data['text_upc'] = $this->language->get('text_upc');
+			$data['text_ean'] = $this->language->get('text_ean');
+			$data['text_jan'] = $this->language->get('text_jan');
+			$data['text_isbn'] = $this->language->get('text_isbn');
+			$data['text_mpn'] = $this->language->get('text_mpn');
+			]]></add>
+		</operation>
+		<operation>
+			<search ><![CDATA[
+			$data['points'] = $product_info['points'];
+			]]></search>
+			<add position="after"><![CDATA[
+			$data['sku'] = $product_info['sku'];
+			$data['upc'] = $product_info['upc'];
+			$data['ean'] = $product_info['ean'];
+			$data['jan'] = $product_info['jan'];
+			$data['isbn'] = $product_info['isbn'];
+			$data['mpn'] = $product_info['mpn'];
+			]]></add>
+		</operation>
+	</file>
+	<file path="catalog/language/english/product/category.php">
+		<operation>
+			<search ><![CDATA[
+			$_['text_model'] = 'Product Code:';
+			]]></search>
+			<add position="after"><![CDATA[
+			$_['text_sku'] = 'Stock Code:';
+			$_['text_upc'] = 'UPC:';
+			$_['text_ean'] = 'EAN:';
+			$_['text_jan'] = 'JAN:';
+			$_['text_isbn'] = 'ISBN:';
+			$_['text_mpn'] = 'MPN:';
+			]]></add>
+		</operation>
+	</file>
+	<file path="catalog/language/english/product/product.php">
+		<operation>
+			<search ><![CDATA[
+			$_['text_model']               = 'Product Code:';
+			]]></search>
+			<add position="after"><![CDATA[
+			// <!-- add by ocMod -->
+			$_['text_sku'] = 'Stock Code:';
+			$_['text_upc'] = 'UPC:';
+			$_['text_ean'] = 'EAN:';
+			$_['text_jan'] = 'JAN:';
+			$_['text_isbn'] = 'ISBN:';
+			$_['text_mpn'] = 'MPN:';
+			// <!-- end add by ocMod -->
+			]]></add>
+		</operation>
+	</file>
+	<file path="catalog/language/dutch/product/product.php">
+		<operation>
+			<search ><![CDATA[
+			$_['text_model']        = 'Model:';
+			]]></search>
+			<add position="after"><![CDATA[
+			// <!-- add by ocMod -->
+			$_['text_sku'] = 'Stock Code:';
+			$_['text_upc'] = 'UPC:';
+			$_['text_ean'] = 'EAN:';
+			$_['text_jan'] = 'JAN:';
+			$_['text_isbn'] = 'ISBN:';
+			$_['text_mpn'] = 'MPN:';
+			// <!-- end add by ocMod -->
+			]]></add>
+		</operation>
+	</file>
+	<!-- edit the template file...-->
+	<file path="catalog/view/theme/*/template/product/product.tpl">
+		<operation>
+			<search ><![CDATA[
+			<?php if ($price) { ?>
+			]]></search>
+			<add position="before"><![CDATA[
+			<!-- add by ocMod -->
+			<table class="table table-striped">
+				<tbody>
+					<?php if ($manufacturer) { ?>
+					<tr>
+						<td><?php echo $text_manufacturer; ?></td>
+						<td><a href="<?php echo $manufacturers; ?>"><?php echo $manufacturer; ?></a></td>
+					</tr>
+						<?php } ?>
+						<?php if ($sku) { ?>
+					<tr>
+						<td><?php echo $text_sku; ?></td>
+						<td><?php echo $sku; ?></td>
+					</tr>
+						<?php } ?>
+						<?php if ($upc) { ?>
+					<tr>
+						<td><?php echo $text_upc; ?></td>
+						<td><?php echo $upc; ?></td>
+					</tr>
+						<?php } ?>
+						<?php if ($ean) { ?>
+					<tr>
+						<td><?php echo $text_ean; ?></td>
+						<td><?php echo $ean; ?></td>
+					</tr>
+						<?php } ?>
+						<?php if ($jan) { ?>
+					<tr>
+						<td><?php echo $text_jan; ?></td>
+						<td><?php echo $jan; ?></td>
+					</tr>
+						<?php } ?>
+						<?php if ($isbn) { ?>
+					<tr>
+						<td><?php echo $text_isbn; ?></td>
+						<td><?php echo $isbn; ?></td>
+					</tr>
+						<?php } ?>
+						<?php if ($mpn) { ?>
+					<tr>
+						<td><?php echo $text_mpn; ?></td>
+						<td><?php echo $mpn; ?></td>
+					</tr>
+						<?php } ?>
+				</tbody>
+			</table>
+			<!-- end add by ocMod -->
+			]]></add>
+		</operation>
+	</file>		
+</modification>

@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+	<modification>
+	<name>Product Images in Checkout</name>
+	<code>Product_Images_in_Checkout</code>
+	<version>1.1</version>
+	<author>manskkl@gmail.com</author>
+	<file name="catalog/view/theme/*/template/checkout/confirm.tpl">
+		<operation error="skip">
+			<search position="before"><![CDATA[
+			<td class="text-left"><?php echo $column_name; ?></td>
+			]]></search>
+			<add trim="true"><![CDATA[
+			<td class="text-left"><?php echo $column_image; ?></td>
+			]]></add>
+		</operation>
+		<operation error="skip">
+			<search position="before"><![CDATA[
+			<td class="text-left"><a href="<?php echo $product['href']; ?>"><?php echo $product['name']; ?></a>
+			]]></search>
+			<add><![CDATA[
+			<td class="text-left"><img src="<?php echo $product['thumb']; ?>" title="<?php echo $product['name']; ?>" style="padding: 1px; border: 1px solid #DDDDDD;" /></td>
+			]]></add>
+		</operation>
+		<operation error="skip">
+			<search position="after"><![CDATA[
+			<td class="text-left"></td>
+			]]></search>
+			<add trim="true"><![CDATA[
+			<td class="text-left"></td>
+			]]></add>
+		</operation>
+		<operation error="skip">
+			<search position="replace"><![CDATA[
+			<td colspan="4" class="text-right"><strong><?php echo $total['title']; ?>:</strong></td>
+			]]></search>
+			<add trim="true"><![CDATA[
+			<td colspan="5" class="text-right"><strong><?php echo $total['title']; ?>:</strong></td>
+			]]></add>
+		</operation>
+	</file>
+	<file name="catalog/language/english/checkout/checkout.php">
+		<operation error="skip">
+			<search position="after"><![CDATA[
+			<?php
+			]]></search>
+			<add trim="true"><![CDATA[
+			$_['column_image'] = 'Image';
+			]]></add>
+		</operation>
+	</file>
+	<file name="catalog/controller/checkout/confirm.php">
+		<operation error="skip">
+			<search position="before"><![CDATA[
+			$data['column_name'] = $this->language->get('column_name');
+			]]></search>
+			<add><![CDATA[
+			$data['column_image'] = $this->language->get('column_image');
+			]]></add>
+		</operation>
+		<operation error="skip">
+			<search position="before"><![CDATA[
+			$data['products'][] = array(
+			]]></search>
+			<add trim="true"><![CDATA[
+			$this->load->model('tool/image');
+			$product_query = $this->db->query("SELECT image FROM " . DB_PREFIX . "product WHERE product_id = '" . (int)$product['product_id'] . "'");					
+					foreach ($product_query->rows as $prodquery) { 
+					$image = $prodquery['image']; 
+					}
+					$thumb = $this->model_tool_image->resize($image, 60, 60);
+			]]></add>
+		</operation>
+		<operation error="skip">
+			<search position="after"><![CDATA[
+			$data['products'][] = array(
+			]]></search>
+			<add trim="true"><![CDATA[
+			'thumb'     => $thumb,
+			]]></add>
+		</operation>
+	</file>
+</modification>
