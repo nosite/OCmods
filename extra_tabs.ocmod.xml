@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<modification>
+    <name>Extra Tabs</name>
+	<version>1.0</version>
+	<author>NoSite.nl</author>
+	<code>product_extra_tabs_ocmod</code>
+
+	<file path="catalog/language/english/product/product.php">
+		<operation>
+			<search ><![CDATA[
+			'Reviews (%s)';
+			]]></search>
+			<add position="after"><![CDATA[
+			$_['tab_price'] = 'Pricing';
+			$_['tab_general'] = 'General';
+			]]></add>
+		</operation>
+	</file>
+	
+	<file path="/catalog/controller/product/product.php">
+		<operation>
+			<search ><![CDATA[
+			('tab_description');
+			]]></search>
+			<add position="after"><![CDATA[
+			$data['tab_general'] = $this->language->get('tab_general'); //add
+			$data['tab_price'] = $this->language->get('tab_price'); //add
+			]]></add>
+		</operation>
+	</file>
+</modification>
