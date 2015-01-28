@@ -1,0 +1,28 @@
+<modification>
+  <name>Meta Description on Product page</name>
+  <version>1.0</version>
+  <author>NoSite.nl</author>
+  <code>meta_description_product_ocmod</code>
+<file path="catalog/controller/product/product.php">
+    <operation>
+      <search ><![CDATA[
+      $this->document->setDescription($product_info['meta_description']);
+      ]]></search>
+    <add position="after"><![CDATA[
+      $data['meta_description'] = html_entity_decode($product_info['meta_description']);
+      ]]></add>
+  </operation>
+</file>
+
+<file path="catalog/view/theme/*/template/product/product.tpl">
+    <operation>
+      <search ><![CDATA[
+      <h1><?php echo $heading_title; ?></h1>
+      ]]></search>
+    <add position="after"><![CDATA[
+      <?php echo $meta_description; ?>
+      ]]></add>
+  </operation>
+</file>
+
+</modification>
