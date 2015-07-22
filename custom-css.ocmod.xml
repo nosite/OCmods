@@ -1,0 +1,17 @@
+<modification>
+    <name>Add Custom CSS</name>
+	<version>1.0</version>
+	<author>NoSite.nl</author>
+	<code>add-custom-css_ocmod</code>
+
+	<file path="catalog/view/theme/sakelicious/template/common/header.tpl">
+		<operation>
+			<search ><![CDATA[
+			</head>
+			]]></search>
+			<add position="before"><![CDATA[
+			<link href="catalog/view/theme/custom.css" rel="stylesheet"/>
+			]]></add>
+		</operation>
+	</file>
+</modification>
